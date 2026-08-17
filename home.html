@@ -338,6 +338,69 @@
             letter-spacing: 1px; 
         }
 
+        /* --- MINECRAFT SERVER CARD --- */
+        .mc-server-wrapper { display: flex; justify-content: center; max-width: 650px; margin: clamp(40px, 8vw, 80px) auto; width: 100%; }
+        .minecraft-server-card {
+            background: var(--card-gradient); border: 2px solid var(--border-color); border-radius: 28px; padding: 26px clamp(18px, 4vw, 32px);
+            color: var(--text-main); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; width: 100%;
+            position: relative; overflow: hidden;
+        }
+        .minecraft-server-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 35px var(--glow-color); }
+        
+        .mc-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 16px; flex-wrap: wrap; }
+        .mc-header-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 200px; }
+        
+        .mc-icon {
+            width: 60px; height: 60px; border-radius: 16px; border: 2px solid var(--border-color);
+            object-fit: cover; background: #100d0a; flex-shrink: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .minecraft-server-card:hover .mc-icon { border-color: var(--accent-1); transform: scale(1.05); }
+
+        .mc-header-info { display: flex; flex-direction: column; justify-content: center; }
+        .mc-status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #52b788; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px; }
+        .mc-status-dot { width: 8px; height: 8px; background-color: #52b788; border-radius: 50%; box-shadow: 0 0 10px #52b788; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .mc-ip-box { 
+            display: inline-flex; align-items: center; gap: 8px; cursor: pointer; background: rgba(0, 0, 0, 0.3); 
+            padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); width: fit-content;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .mc-ip-box:hover { background: rgba(0, 0, 0, 0.5); border-color: var(--border-color); }
+        .mc-ip { font-size: 1.25rem; font-weight: 800; color: var(--text-main); letter-spacing: 0.3px; word-break: break-all; }
+        .copy-icon { font-size: 1.1rem; color: var(--text-muted); transition: color 0.2s ease; }
+        .mc-ip-box:hover .copy-icon { color: var(--accent-1); }
+
+        .mc-toggle-switch {
+            position: relative; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-color); border-radius: 30px;
+            padding: 4px; display: flex; gap: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); margin-left: auto;
+        }
+        .mc-toggle-indicator {
+            position: absolute; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); border-radius: 20px;
+            box-shadow: 0 0 15px var(--glow-color); z-index: 1; pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mc-toggle-btn {
+            background: transparent; border: none; color: var(--text-muted); font-size: 0.72rem; font-weight: 800; padding: 7px 16px;
+            border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 6px; z-index: 2; position: relative; text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .mc-toggle-btn.active { color: #ffffff; }
+
+        .mc-footer {
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 14px; margin-top: 4px;
+        }
+        .mc-port-badge { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; color: var(--text-muted); }
+        .mc-version { font-weight: 800; color: var(--accent-1); font-size: 0.85rem; }
+
+        #copy-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--accent-1); color: #fff; font-weight: 800; padding: 10px 24px; border-radius: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 2000;
+        }
+        #copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
         /* --- GAME SHOWCASE STYLES --- */
         .game-categories { 
             display: flex; 
@@ -458,7 +521,6 @@
             opacity: 1;
             transform: translateY(0) scale(1);
             
-            /* Fluid multi-property transition utilizing optimized cubic-beziers for expanding */
             transition: 
                 transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                 border-color 0.4s ease, 
@@ -722,6 +784,10 @@
             .social-icon img { width: 32px; height: 32px; }
             .social-text h3 { font-size: 1.05rem; }
             .social-text p { font-size: 0.65rem; }
+            
+            .minecraft-server-card { padding: 18px; border-radius: 20px; }
+            .mc-icon { width: 48px; height: 48px; }
+            .mc-ip { font-size: 1rem; }
         }
     </style>
 </head>
@@ -780,6 +846,39 @@
             </a>
         </div>
 
+        <!-- NEW MINECRAFT SERVER UI INTEGRATION -->
+        <h2 class="section-title reveal-element" style="margin-top: clamp(40px, 8vw, 80px);">My Minecraft Server</h2>
+        <div class="mc-server-wrapper reveal-element">
+            <div class="minecraft-server-card">
+                <div class="mc-top-row">
+                    <div class="mc-header-left">
+                        <img src="images/mc-icon.png" alt="MC Server Icon" class="mc-icon" onerror="this.src='https://via.placeholder.com/60/100d0a/d4a373?text=MC'">
+                        <div class="mc-header-info">
+                            <div class="mc-status-badge">
+                                <span class="mc-status-dot"></span> Online
+                            </div>
+                            <div class="mc-ip-box" onclick="copyIP('mc.blinkle.fun')">
+                                <span class="mc-ip">mc.blinkle.fun</span>
+                                <span class="material-symbols-outlined copy-icon">content_copy</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mc-toggle-switch">
+                        <div class="mc-toggle-indicator" id="mc-toggle-indicator"></div>
+                        <button class="mc-toggle-btn active" id="mc-btn-java" onclick="switchMCType('java')">Java</button>
+                        <button class="mc-toggle-btn" id="mc-btn-bedrock" onclick="switchMCType('bedrock')">Bedrock</button>
+                    </div>
+                </div>
+                
+                <div class="mc-footer">
+                    <span class="mc-port-badge" id="mc-port-badge">Port: 25565</span>
+                    <span class="mc-version">Version 1.20+</span>
+                </div>
+            </div>
+        </div>
+        <!-- END OF MINECRAFT SERVER UI -->
+
         <h2 class="player-title reveal-element" id="showcase-title">Favorite Game Showcase</h2>
 
         <div class="game-categories reveal-element" id="game-categories-bar">
@@ -835,6 +934,9 @@
         </div>
     </div>
 
+    <!-- Toast notification for copying IP -->
+    <div id="copy-toast">IP Copied!</div>
+
     <footer class="bottom-bar">
         <div class="footer-logo">Belno is the best uma bro</div>
     </footer>
@@ -856,10 +958,12 @@
             document.getElementById('hero-content').classList.add('loaded');
             updateIndicatorPosition();
             applyCardVisibility(true);
+            setTimeout(updateMCToggleIndicator, 100); // Initialize MC switch
         });
 
         window.addEventListener('resize', () => {
             updateIndicatorPosition();
+            updateMCToggleIndicator(); // Maintain MC switch position
         });
 
         function updateIndicatorPosition() {
@@ -890,6 +994,51 @@
                 themeBtnText.textContent = "THEME: BROWN";
             }
         });
+
+        /* --- MINECRAFT SERVER LOGIC --- */
+        function copyIP(baseIp) {
+            const isBedrock = document.getElementById('mc-btn-bedrock').classList.contains('active');
+            let copyText = baseIp;
+            if (isBedrock) {
+                copyText = baseIp + ":19132"; // Appends bedrock port dynamically if needed
+            }
+            
+            navigator.clipboard.writeText(copyText).then(() => {
+                const toast = document.getElementById('copy-toast');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function switchMCType(type) {
+            const javaBtn = document.getElementById('mc-btn-java');
+            const bedrockBtn = document.getElementById('mc-btn-bedrock');
+            const portBadge = document.getElementById('mc-port-badge');
+            
+            if (type === 'java') {
+                javaBtn.classList.add('active');
+                bedrockBtn.classList.remove('active');
+                portBadge.textContent = 'Port: 25565';
+            } else {
+                bedrockBtn.classList.add('active');
+                javaBtn.classList.remove('active');
+                portBadge.textContent = 'Port: 19132';
+            }
+            updateMCToggleIndicator();
+        }
+
+        function updateMCToggleIndicator() {
+            const activeBtn = document.querySelector('.mc-toggle-btn.active');
+            const indicator = document.getElementById('mc-toggle-indicator');
+            if (activeBtn && indicator) {
+                indicator.style.width = `${activeBtn.offsetWidth}px`;
+                indicator.style.height = `${activeBtn.offsetHeight}px`;
+                indicator.style.left = `${activeBtn.offsetLeft}px`;
+                indicator.style.top = `${activeBtn.offsetTop}px`;
+            }
+        }
 
         const lightbox = document.getElementById('lightbox');
         function openLightbox() { 
