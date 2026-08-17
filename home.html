@@ -852,7 +852,7 @@
             <div class="minecraft-server-card">
                 <div class="mc-top-row">
                     <div class="mc-header-left">
-                        <img src="images/mc-icon.png" alt="MC Server Icon" class="mc-icon" onerror="this.src='https://via.placeholder.com/60/100d0a/d4a373?text=MC'">
+                        <img src="https://api.mcsrvstat.us/icon/play.belnolight.fun:21989" alt="MC Server Icon" class="mc-icon" onerror="this.src='https://via.placeholder.com/60/100d0a/d4a373?text=MC'">
                         <div class="mc-header-info">
                             <div class="mc-status-badge">
                                 <span class="mc-status-dot"></span> Online
@@ -873,7 +873,7 @@
                 
                 <div class="mc-footer">
                     <span class="mc-port-badge" id="mc-port-badge">Port: 21989</span>
-                    <span class="mc-version">Version Java 26.2 Below / Bedrock Crossplay Lastest </span>
+                    <span class="mc-version" id="mc-version-text">Version: 26.2 Below</span>
                 </div>
             </div>
         </div>
@@ -997,11 +997,7 @@
 
         /* --- MINECRAFT SERVER LOGIC --- */
         function copyIP(baseIp) {
-            const isBedrock = document.getElementById('mc-btn-bedrock').classList.contains('active');
-            let copyText = baseIp;
-            if (isBedrock) {
-                copyText = baseIp + ":21989"; // Appends bedrock port dynamically if needed
-            }
+            let copyText = baseIp + ":21989";
             
             navigator.clipboard.writeText(copyText).then(() => {
                 const toast = document.getElementById('copy-toast');
@@ -1016,15 +1012,18 @@
             const javaBtn = document.getElementById('mc-btn-java');
             const bedrockBtn = document.getElementById('mc-btn-bedrock');
             const portBadge = document.getElementById('mc-port-badge');
+            const versionText = document.getElementById('mc-version-text');
             
             if (type === 'java') {
                 javaBtn.classList.add('active');
                 bedrockBtn.classList.remove('active');
-                portBadge.textContent = 'Port: 25565';
+                portBadge.textContent = 'Port: 21989';
+                if (versionText) versionText.textContent = 'Version: 26.2 Below';
             } else {
                 bedrockBtn.classList.add('active');
                 javaBtn.classList.remove('active');
-                portBadge.textContent = 'Port: 19132';
+                portBadge.textContent = 'Port: 21989';
+                if (versionText) versionText.textContent = 'Version: Crossplay / Latest Version';
             }
             updateMCToggleIndicator();
         }
